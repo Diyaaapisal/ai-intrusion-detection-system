@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>IDS Dashboard</title>
+<script>
+async function loadData(){
+    let res = await fetch('/alerts');
+    let data = await res.json();
+
+    let table = document.getElementById("table");
+    table.innerHTML = "";
+
+    data.forEach(a=>{
+        table.innerHTML += `<tr><td>${a.ip}</td><td>${a.status}</td></tr>`;
+    });
+}
+
+setInterval(loadData,2000);
+</script>
+</head>
+
+<body onload="loadData()">
+<h1>Real-Time IDS Dashboard</h1>
+
+<table border="1">
+<tr><th>IP</th><th>Status</th></tr>
+<tbody id="table"></tbody>
+</table>
+
+</body>
+</html>
